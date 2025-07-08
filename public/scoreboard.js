@@ -6,14 +6,6 @@ function formatPeriods(team) {
     return team.linescores.map(p => p.displayValue).join('   ');
 }
 
-// Format Date object as YYYYMMDD string for ESPN API
-function formatDateYYYYMMDD(date) {
-    const y = date.getFullYear();
-    const m = String(date.getMonth() + 1).padStart(2, '0');
-    const d = String(date.getDate()).padStart(2, '0');
-    return `${y}${m}${d}`;
-}
-
 async function loadScores(dateStr) {
     container.innerHTML = '<p style="text-align:center;">Loading...</p>';
 
@@ -65,25 +57,26 @@ async function loadScores(dateStr) {
 }
 
 // Initialize date input to today’s date
-const today = new Date();
-dateInput.value = today.toISOString().slice(0, 10);
+const today = moment('2025-06-22');
+dateInput.value = today.format('YYYY-MM-DD');
 
-// Load scores for initial date (today)
-loadScores(formatDateYYYYMMDD(today));
+loadScores(today.format('YYYYMMDD'));
 
 // Button handlers for increment/decrement day
 document.getElementById('prevDay').addEventListener('click', () => {
-    const currentDate = new Date(dateInput.value);
-    currentDate.setDate(currentDate.getDate() - 1);
-    dateInput.value = currentDate.toISOString().slice(0, 10);
-    loadScores(formatDateYYYYMMDD(currentDate));
+    const currentDate = moment(dateInput.value);
+    currentDate.subtract(1, 'day');
+    dateInput.value = currentDate.format('YYYY-MM-DD');
+    const formatted = dateInput.value.replace(/-/g, '');
+    loadScores(formatted);
 });
 
 document.getElementById('nextDay').addEventListener('click', () => {
-    const currentDate = new Date(dateInput.value);
-    currentDate.setDate(currentDate.getDate() + 1);
-    dateInput.value = currentDate.toISOString().slice(0, 10);
-    loadScores(formatDateYYYYMMDD(currentDate));
+    const currentDate = moment(dateInput.value);
+    currentDate.add(1, 'day');
+    dateInput.value = currentDate.format('YYYY-MM-DD');
+    const formatted = dateInput.value.replace(/-/g, '');
+    loadScores(formatted);
 });
 
 // Load button to reload for selected date manually

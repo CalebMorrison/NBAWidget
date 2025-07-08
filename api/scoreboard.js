@@ -1,5 +1,3 @@
-const axios = require('axios');
-
 export default async function handler(req, res) {
     console.log('Request query:', req.query);
     const { dateFrom, dateTo } = req.query;
@@ -9,12 +7,15 @@ export default async function handler(req, res) {
     }
 
     try {
-        const response = await axios.get(
-            `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=${dateFrom}-${dateTo}`
-        );
+        const url = `https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=${dateFrom}-${dateTo}`;
+        const response = await fetch(url);
 
-        const games = response.data?.events || [];
-        res.status(200).json(games);
+        if (!response.ok) {
+            throw new Error(`Fetch failed with status ${response.status}`);
+        }
+
+        const data = await response.json();
+        res.status(200).json(data.events);
     } catch (err) {
         console.error('API fetch error:', err.message);
         res.status(500).json({ error: 'Failed to fetch scoreboard' });
