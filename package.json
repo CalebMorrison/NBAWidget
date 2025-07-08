@@ -15,9 +15,6 @@
   "bugs": {
     "url": "https://github.com/CalebMorrison/NBAWidget/issues"
   },
-  "engines": {
-    "node": "20.x"
-  },
   "homepage": "https://github.com/CalebMorrison/NBAWidget#readme",
   "description": "",
   "dependencies": {
