@@ -1,13 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <meta charset="UTF-8" />
 </head>
+
 <body>
   <h1>NBA Scoreboard</h1>
-  <div id="scoreboard">Loading...</div>
+
+  <div class="controls">
+    <button id="prevDay">&lt; Prev</button>
+
+    <label>
+      Date:
+      <input type="date" id="selectedDate" />
+    </label>
+
+    <button id="nextDay">Next &gt;</button>
+
+    <button id="loadScores">Load Scores</button>
+  </div>
+
+  <main id="scoreboard">
+    <p style="text-align:center; color:#777;">Select dates and click "Load Scores" to see games.</p>
+  </main>
+
   <script src="scoreboard.js"></script>
 </body>
+
 </html>

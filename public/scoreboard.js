@@ -1,18 +1,32 @@
-dateFrom = 20250303;
-dateTo = 20250304;
+const container = document.getElementById('scoreboard');
+const dateInput = document.getElementById('selectedDate');
 
-async function fetchScoreboard() {
+function formatPeriods(team) {
+    if (!team.linescores) return 'No period scores';
+    return team.linescores.map(p => p.displayValue).join('   ');
+}
+
+// Format Date object as YYYYMMDD string for ESPN API
+function formatDateYYYYMMDD(date) {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}${m}${d}`;
+}
+
+async function loadScores(dateStr) {
+    container.innerHTML = '<p style="text-align:center;">Loading...</p>';
+
     try {
-        const response = await fetch(`/api/scoreboard?dateFrom=${dateFrom}&dateTo=${dateTo}`);
-        const games = await response.json();
-
-        const container = document.getElementById('scoreboard');
-        container.innerHTML = '';
+        const res = await fetch(`/api/scoreboard?dateFrom=${dateStr}&dateTo=${dateStr}`);
+        const games = await res.json();
 
         if (games.length === 0) {
-            container.textContent = 'No games found.';
+            container.innerHTML = '<p style="text-align:center; color:#777;">No games found for selected date.</p>';
             return;
         }
+
+        container.innerHTML = ''; // clear container
 
         games.forEach(game => {
             const competition = game.competitions[0];
@@ -21,14 +35,6 @@ async function fetchScoreboard() {
             const away = competition.competitors.find(t => t.homeAway === 'away');
             const location = competition.neutralSite ? 'vs.' : '@';
             const title = `${home.team.name} ${location} ${away.team.name}`;
-
-            // Function to format period scores as "Q1: 25, Q2: 30, ..."
-            function formatPeriods(team) {
-                if (!team.linescores) return 'No period scores available';
-                return team.linescores
-                    .map((period) => `${period.displayValue} `)
-                    .join('');
-            }
 
             const gameEl = document.createElement('div');
             gameEl.className = 'game';
@@ -54,9 +60,39 @@ async function fetchScoreboard() {
         });
 
     } catch (err) {
-        document.getElementById('scoreboard').textContent = 'Failed to load scoreboard.';
-        console.error(err);
+        container.innerHTML = '<p style="text-align:center; color:red;">Failed to load scores.</p>';
     }
 }
 
-fetchScoreboard();
+// Initialize date input to today’s date
+const today = new Date();
+dateInput.value = today.toISOString().slice(0, 10);
+
+// Load scores for initial date (today)
+loadScores(formatDateYYYYMMDD(today));
+
+// Button handlers for increment/decrement day
+document.getElementById('prevDay').addEventListener('click', () => {
+    const currentDate = new Date(dateInput.value);
+    currentDate.setDate(currentDate.getDate() - 1);
+    dateInput.value = currentDate.toISOString().slice(0, 10);
+    loadScores(formatDateYYYYMMDD(currentDate));
+});
+
+document.getElementById('nextDay').addEventListener('click', () => {
+    const currentDate = new Date(dateInput.value);
+    currentDate.setDate(currentDate.getDate() + 1);
+    dateInput.value = currentDate.toISOString().slice(0, 10);
+    loadScores(formatDateYYYYMMDD(currentDate));
+});
+
+// Load button to reload for selected date manually
+document.getElementById('loadScores').addEventListener('click', () => {
+    const selected = dateInput.value;
+    if (!selected) {
+        alert('Please select a date.');
+        return;
+    }
+    const formatted = selected.replace(/-/g, '');
+    loadScores(formatted);
+});

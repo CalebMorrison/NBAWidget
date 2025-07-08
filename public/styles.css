@@ -22,7 +22,7 @@ h1 {
 }
 #scoreboard {
   max-width: 400px;
-  margin: 2rem 0 2rem 1rem;
+  margin: 2rem auto;
   padding: 0 1rem;
 }
 .game {
@@ -83,8 +83,65 @@ h1 {
   font-size: 1.1rem;
   margin-left: 1rem;
 }
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.controls label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.controls input[type="date"] {
+  margin-top: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.controls input[type="date"]:focus {
+  outline: none;
+  border-color: #1d428a;
+  box-shadow: 0 0 4px rgba(29, 66, 138, 0.3);
+}
+
+.controls button {
+  padding: 0.6rem 1.2rem;
+  background-color: #1d428a;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.controls button:hover {
+  background-color: #163570;
+}
+
 @media (max-width: 600px) {
   .game {
     padding: 1rem;
+  }
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .controls button,
+  .controls label {
+    width: 100%;
   }
 }
