@@ -3,6 +3,8 @@ import axios from 'axios';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+// This server is for local development only.
+// Vercel uses /api/scoreboard.js as a serverless function instead.
 const app = express();
 const PORT = 3000;
 
