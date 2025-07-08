@@ -1,0 +1,24 @@
+{
+  "name": "nbawidget",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CalebMorrison/NBAWidget.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CalebMorrison/NBAWidget/issues"
+  },
+  "homepage": "https://github.com/CalebMorrison/NBAWidget#readme",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.10.0",
+    "express": "^5.1.0"
+  }
+}
