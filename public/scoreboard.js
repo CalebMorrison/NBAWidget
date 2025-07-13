@@ -22,7 +22,6 @@ async function loadScores(dateStr) {
 
         games.forEach(game => {
             const competition = game.competitions[0];
-            const status = competition.status.type.description;
             const home = competition.competitors.find(t => t.homeAway === 'home');
             const away = competition.competitors.find(t => t.homeAway === 'away');
             const location = competition.neutralSite ? 'vs.' : '@';
@@ -46,6 +45,8 @@ async function loadScores(dateStr) {
                     <span class="period-scores">${formatPeriods(away)}</span>
                     <span class="total-score">${away.score}</span>
                 </div>
+
+                <a href="game.html?gameId=${competition.id}" class="boxscore-link" target="_blank">Boxscore</a>
                 `;
 
             container.appendChild(gameEl);

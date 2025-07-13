@@ -131,6 +131,65 @@ h1 {
 .controls button:hover {
   background-color: #163570;
 }
+.boxscore-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.boxscore-card {
+  flex: 1 1 400px;
+  max-width: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 1rem;
+}
+
+.boxscore-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  table-layout: auto;
+}
+
+.boxscore-table thead {
+  background-color: #f0f2f5;
+}
+
+.boxscore-table th,
+.boxscore-table td {
+  border: 1px solid #e0e0e0;
+  padding: 0.6em 0.5em;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.boxscore-table td:first-child,
+.boxscore-table th:first-child {
+  text-align: left;
+}
+
+.boxscore-table .team-name-row th {
+  background-color: #1d428a;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75rem 0.5rem;
+  border: none;
+}
+
+.boxscore-table .team-totals {
+  background-color: #f4f4f4;
+}
+
+.boxscore-table .team-totals td {
+  font-weight: 600;
+  color: #222;
+}
 
 @media (max-width: 600px) {
   .game {
@@ -145,4 +204,14 @@ h1 {
   .controls label {
     width: 100%;
   }
+
+  @media (max-width: 600px) {
+  .boxscore-card {
+    padding: 1rem;
+  }
+
+  .boxscore-table {
+    font-size: 0.85rem;
+  }
+}
 }
