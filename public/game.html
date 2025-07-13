@@ -1,16 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Game Boxscore</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
 <body>
-  <button id="backToScoreboard" style="margin: 1rem; padding: 0.5rem 1rem; border-radius: 6px; border: none; background-color: #1d428a; color: white; cursor: pointer;">
-    ← Back to Scoreboard
-  </button>
+    <button id="backToScoreboard" style="margin: 1rem; padding: 0.5rem 1rem; border-radius: 6px; border: none; background-color: #1d428a; color: white; cursor: pointer;">
+      ← Back to Scoreboard
+    </button>
 
-  <div id="game-details">
-    <p>Loading game details...</p>
-  </div>
+    <div id="game-details">
+        <p>Loading game details...</p>
+    </div>
 
-  <script src="game.js"></script>
-  <script>
-    document.getElementById('backToScoreboard').addEventListener('click', () => {
-      window.parent.postMessage({ type: 'loadScoreboard' }, '*');
-    });
-  </script>
+    <script src="game.js"></script>
+    <script>
+      document.getElementById('backToScoreboard').addEventListener('click', () => {
+          window.parent.postMessage({ type: 'loadScoreboard' }, '*');
+      });
+    </script>
 </body>
+
+</html>
