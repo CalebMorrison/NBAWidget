@@ -46,10 +46,16 @@ async function loadScores(dateStr) {
                     <span class="total-score">${away.score}</span>
                 </div>
 
-                <a href="game.html?gameId=${competition.id}" class="boxscore-link" target="_blank">Boxscore</a>
+                <a href="#" class="boxscore-link" data-game-id="${competition.id}">Boxscore</a>
                 `;
 
             container.appendChild(gameEl);
+            const boxscoreLink = gameEl.querySelector('.boxscore-link');
+            boxscoreLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                const gameId = e.target.getAttribute('data-game-id');
+                window.parent.postMessage({ type: 'loadBoxscore', gameId }, '*');
+            });
         });
 
     } catch (err) {

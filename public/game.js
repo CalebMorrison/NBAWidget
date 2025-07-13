@@ -21,8 +21,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         const awayBoxscore = boxscore.find(t => t.team.displayName === awayTeam.team.displayName);
 
         const competitors = game.header.competitions[0].competitors;
-        const gameInfoHome = competitors.find(t => t.homeAway === 'home');
-        const gameInfoAway = competitors.find(t => t.homeAway === 'away');
 
         const homeStats = homeBoxscore.statistics[0];
         const awayStats = awayBoxscore.statistics[0];
